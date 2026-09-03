@@ -300,7 +300,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Widget _buildContactCard(String name, String time, String message, String phone, String avatarUrl, String user_id) {
+  Widget _buildContactCard(String name, String time, String message, String phone, String avatarUrl, String userId) {
     // Get the current user's username
     final currentUser = Supabase.instance.client.auth.currentUser;
     final currentUsername = currentUser?.userMetadata?['username'] as String? ?? 'User';
@@ -356,8 +356,8 @@ class _HomePageState extends State<HomePage> {
                       icon: const Icon(Icons.message, color: Color(0xFFF4845F), size: 24),
                       onPressed: () async {
                         // Sort user IDs to ensure consistency
-                        final sortedUserIds = [currentUserId, user_id]..sort();
-                        final chatRoomId = Uuid().v5(Uuid.NAMESPACE_URL, sortedUserIds.join('_'));
+                        final sortedUserIds = [currentUserId, userId]..sort();
+                        final chatRoomId = const Uuid().v5(Namespace.url.value, sortedUserIds.join('_'));
                         
                         // Create or get the room
                         await Supabase.instance.client.from('chat_rooms').upsert({

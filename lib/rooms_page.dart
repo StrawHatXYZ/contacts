@@ -32,7 +32,7 @@ class _RoomsPageState extends State<RoomsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           children: [
             Icon(Icons.chat, color: Colors.black),
             SizedBox(width: 8),
@@ -40,9 +40,9 @@ class _RoomsPageState extends State<RoomsPage> {
           ],
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed:() {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
           },
         ),
         backgroundColor: Colors.white,

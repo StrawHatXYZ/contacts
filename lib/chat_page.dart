@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 class ChatPage extends StatefulWidget {
   final String roomId;
 
-  const ChatPage({Key? key, required this.roomId}) : super(key: key);
+  const ChatPage({super.key, required this.roomId});
 
   @override
   _ChatPageState createState() => _ChatPageState();
@@ -29,7 +29,7 @@ class _ChatPageState extends State<ChatPage> {
         .stream(primaryKey: ['id'])
         .eq('room_id', widget.roomId)
         .order('created_at', ascending: true)
-        .map((event) => event.map((e) => e as Map<String, dynamic>).toList());
+        .map((event) => event.map((e) => e).toList());
     
     _listenToMessages();
     _fetchChatRoomDetails();
@@ -75,7 +75,7 @@ class _ChatPageState extends State<ChatPage> {
     if (_scrollController.hasClients) {
       _scrollController.animateTo(
         _scrollController.position.maxScrollExtent,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeOut,
       );
     }
@@ -152,7 +152,7 @@ class _ChatPageState extends State<ChatPage> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Row(
@@ -160,18 +160,18 @@ class _ChatPageState extends State<ChatPage> {
             CircleAvatar(
               backgroundImage: otherUserAvatarUrl != null 
                 ? NetworkImage(otherUserAvatarUrl!)
-                : AssetImage('assets/default_avatar.png') as ImageProvider,
+                : const AssetImage('assets/default_avatar.png') as ImageProvider,
               radius: 20,
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   otherUsername ?? 'Loading...',
-                  style: TextStyle(color: Colors.black, fontSize: 16),
+                  style: const TextStyle(color: Colors.black, fontSize: 16),
                 ),
-                Text(
+                const Text(
                   'Online',
                   style: TextStyle(color: Colors.grey, fontSize: 12),
                 ),
@@ -188,7 +188,7 @@ class _ChatPageState extends State<ChatPage> {
               child: ListView.builder(
                 itemCount: _messages.length,
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final message = _messages[index];
                   final isCurrentUser = message['sender_id'] == currentUserId;
@@ -219,9 +219,9 @@ class _ChatPageState extends State<ChatPage> {
     final formattedDate = DateFormat('MMMM d').format(date);
     return Container(
       alignment: Alignment.center,
-      margin: EdgeInsets.symmetric(vertical: 16),
+      margin: const EdgeInsets.symmetric(vertical: 16),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(12),
@@ -243,20 +243,20 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget _buildMessageBubble(Map<String, dynamic> message, bool isCurrentUser) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
       child: Column(
         crossAxisAlignment: isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: isCurrentUser ? Color(0xFFF4845F) : Colors.white,
+              color: isCurrentUser ? const Color(0xFFF4845F) : Colors.white,
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withValues(alpha: 0.1),
                   blurRadius: 3,
-                  offset: Offset(0, 1),
+                  offset: const Offset(0, 1),
                 ),
               ],
             ),
@@ -267,11 +267,11 @@ class _ChatPageState extends State<ChatPage> {
                   message['content'],
                   style: TextStyle(color: isCurrentUser ? Colors.white : Colors.black, fontSize: 20,fontStyle: FontStyle.normal),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
                   DateFormat('h:mm a').format(DateTime.parse(message['created_at']).toLocal()),
                   style: TextStyle(
-                    color: isCurrentUser ? Colors.white.withOpacity(0.7) : Colors.grey[600],
+                    color: isCurrentUser ? Colors.white.withValues(alpha: 0.7) : Colors.grey[600],
                     fontSize: 12,
                   ),
                 ),
@@ -285,14 +285,14 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget _buildMessageInput() {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 5,
-            offset: Offset(0, -1),
+            offset: const Offset(0, -1),
           ),
         ],
       ),
@@ -309,19 +309,19 @@ class _ChatPageState extends State<ChatPage> {
                 ),
                 filled: true,
                 fillColor: Colors.grey[200],
-                contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               ),
               onSubmitted: (_) => _sendMessage(),
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color(0xFFF4845F),
               shape: BoxShape.circle,
             ),
             child: IconButton(
-              icon: Icon(Icons.send, color: Colors.white),
+              icon: const Icon(Icons.send, color: Colors.white),
               onPressed: _sendMessage,
             ),
           ),

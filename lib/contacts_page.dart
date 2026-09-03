@@ -5,7 +5,6 @@ import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'dart:typed_data';
 
 class ContactsPage extends StatefulWidget {
   const ContactsPage({super.key});
@@ -48,7 +47,7 @@ class _ContactsPageState extends State<ContactsPage> {
           .eq('user_id', user.id)
           .order('name', ascending: true);
 
-      final newContacts = response as List<Map<String, dynamic>>;
+      final newContacts = response;
       
       // Merge new contacts with existing ones
       final mergedContacts = [...contacts, ...newContacts];
@@ -288,11 +287,11 @@ class _ContactsPageState extends State<ContactsPage> {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.phone, color: Color(0xFFF4845F), size: 24),
-                    onPressed: () => launch('tel:$phone'),
+                    onPressed: () => launchUrl(Uri.parse('tel:$phone')),
                   ),
                   IconButton(
                     icon: const Icon(Icons.message, color: Color(0xFFF4845F), size: 24),
-                    onPressed: () => launch('sms:$phone'),
+                    onPressed: () => launchUrl(Uri.parse('sms:$phone')),
                   ),
                 ],
               ),
