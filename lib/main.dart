@@ -5,13 +5,23 @@ import 'login_page.dart';
 import 'register_page.dart';
 import 'home_page.dart';
 
+const String supabaseUrl = String.fromEnvironment(
+  'SUPABASE_URL',
+  defaultValue: 'https://kotncfxpwaeivymcbihi.supabase.co',
+);
+const String supabaseAnonKey = String.fromEnvironment(
+  'SUPABASE_ANON_KEY',
+  defaultValue:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtvdG5jZnhwd2FlaXZ5bWNiaWhpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjY1MzM0MDAsImV4cCI6MjA0MjEwOTQwMH0.NWkKyakE7SINjvrdgOWS54_MWWkz55LZtt_QwVeQpiw',
+);
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
     await Supabase.initialize(
-      url: 'https://kotncfxpwaeivymcbihi.supabase.co',
-      anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtvdG5jZnhwd2FlaXZ5bWNiaWhpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjY1MzM0MDAsImV4cCI6MjA0MjEwOTQwMH0.NWkKyakE7SINjvrdgOWS54_MWWkz55LZtt_QwVeQpiw',
+      url: supabaseUrl,
+      anonKey: supabaseAnonKey,
     );
     print('Supabase initialized successfully');
   } catch (e) {
